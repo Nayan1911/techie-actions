@@ -29,7 +29,7 @@ jobs:
       run:
         echo ${{ env.Branch }}
         echo ${{ env.Date }}
-        echo "Tag=$Branch-$Date.1" >> $GITHUB_ENV
+        echo "Tag=sharmanayan/techie:$Branch-$Date.1" >> $GITHUB_ENV
 
     - name: Tag checking
       run:
@@ -37,4 +37,24 @@ jobs:
 
     - name: Build with Maven
       run: mvn clean install 
-      
+
+    - name: Docker login
+      run: |
+        docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Docker Build
+      run: |
+        Tag:${{ env.Tag }}
+        docker build --no-cache -t $Tag .
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+
+    - name: Docker Push
+      run: |
+        Tag:${{ env.Tag }}
+        docker push $Tag
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
