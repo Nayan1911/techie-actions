@@ -27,7 +27,9 @@ jobs:
 
     - name: Checking
       run:
-        echo $Branch 
+        echo "Branch=$Branch"
+        echo $Branch
+        echo "Date=$Date"
         echo $Date
 
     - name: Build with Maven
