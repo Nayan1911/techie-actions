@@ -27,10 +27,8 @@ jobs:
 
     - name: Checking
       run:
-        echo "Branch=$Branch"
-        echo $Branch
-        echo "Date=$Date"
-        echo $Date
+        echo ${{ env.Branch }}
+        echo ${{ env.Date }}
 
     - name: Build with Maven
       run: mvn clean install 
