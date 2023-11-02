@@ -29,6 +29,11 @@ jobs:
       run:
         echo ${{ env.Branch }}
         echo ${{ env.Date }}
+        echo "Tag=$Branch-$Date.1" >> $GITHUB_ENV
+
+    - name: Tag checking
+      run:
+        echo $Tag
 
     - name: Build with Maven
       run: mvn clean install 
