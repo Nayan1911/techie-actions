@@ -47,8 +47,8 @@ jobs:
 
     - name: Build and Push Docker Image
       run: |
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/techie:${{ env.Tag }} .
-        docker push ${{ secrets.DOCKER_USERNAME }}/techie:${{ env.Tag }}
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/techie:latest .
+        docker push ${{ secrets.DOCKER_USERNAME }}/techie:latest
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
