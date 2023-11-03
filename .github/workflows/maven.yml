@@ -22,13 +22,17 @@ jobs:
 
     - name: Assign Branch and date
       run:
+        BRANCH=$(echo "$GITHUB_REF" | awk -F'/' '{print $3}')
         echo "Branch=$(echo "GITHUB_REF" | awk -F'/' '{print $3}')" >> $GITHUB_ENV && echo "Date=$(date + '%d-%m-%y')" >> $GITHUB_ENV
 
     - name: Checking
       run:
-        echo ${{ env.Branch }}
-        echo ${{ env.Date }}
-        echo "Tag=$Branch-$Date.1" >> $GITHUB_ENV
+        echo $Branch
+        echo $Date
+
+    - name: Assign Variable
+      run:
+        echo "Tag=sharmanayan/techie:$BRANCH-$DATE.1" >> $GITHUB_ENV
 
     - name: Tag checking
       run:
