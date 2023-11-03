@@ -38,23 +38,18 @@ jobs:
     - name: Build with Maven
       run: mvn clean install 
 
-    - name: Docker login
-      run: |
-        docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-      env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+    - name: Log in to Docker Hub
+      uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Docker Build
-      run: |
-        Tag:${{ env.Tag }}
-        docker build --no-cache -t $Tag .
-      env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
 
-    - name: Docker Push
-      run: |
-        Tag:${{ env.Tag }}
-        docker push $Tag
-      env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: ./
+        file: Dockerfile
+        push: true
+        tags: ${{ env.Tag }}
+
