@@ -62,7 +62,7 @@ jobs:
           echo "New_tag=$New_tag" >> $GITHUB_ENV
         else
           New_tag=IMAGE_NAME:TAG_WITHOUT_BUILD_NUMBER.1
-          echo "New tag: $New_tag
+          echo "New tag: $New_tag"
           echo "New_tag=$New_tag" >> $GITHUB_ENV
         fi
 
