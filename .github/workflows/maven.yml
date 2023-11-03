@@ -21,23 +21,24 @@ jobs:
         cache: maven
 
     - name: Assign Branch and date
-      run:
+      run: |
         echo "Branch=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
         echo "Date=$(date +'%d-%m-%y')" >> $GITHUB_ENV
 
     - name: Checking
-      run:
-        echo "Branch:${{ env.Branch }}"
-        echo "Date:${{ env.Date }}"
+      run: |
+        echo "Branch: ${{ env.Branch }}"
+        echo "Date: ${{ env.Date }}"
 
     - name: Assign Variable
-      run:
-        echo "Tag=$Branch-$Date.1"
+      run: |
+        Tag=$Branch-$Date.1
         echo "Tag=$Tag" >> $GITHUB_ENV
 
     - name: Tag checking
-      run:
-        echo $Tag
+      run: |
+        echo "Tag: ${{ env.Tag }}"
+    
 
     - name: Build with Maven
       run: mvn clean install 
