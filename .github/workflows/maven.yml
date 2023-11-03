@@ -46,7 +46,7 @@ jobs:
     - name: Redifining Tag
       run: |
         IMAGE_NAME="sharmanayan/techie"
-        TAG_WITHOUT_BUILD_NUMBER=${{ env.Tag }} 
+        TAG_WITHOUT_BUILD_NUMBER="${{ env.Branch }}-${{ env.Date }}"
         API_URL="https://hub.docker.com/v2/repositories/$IMAGE_NAME/tags/?page_size=10&ordering=last_updated"
         AUTH_HEADER="Authorization: Bearer ${{ secrets.DOCKER_TOKEN }}"
         RESPONSE=$(curl --location --header "$AUTH_HEADER" "$API_URL")
@@ -57,11 +57,11 @@ jobs:
           echo "Current Numeric part: $numeric_part" 
           numeric_part=$((numeric_part+1))
           echo "Updated Numeric Part: $numeric_part"
-          New_tag=$IMAGE_NAME:TAG_WITHOUT_BUILD_NUMBER.$numeric_part
+          New_tag=$IMAGE_NAME:$TAG_WITHOUT_BUILD_NUMBER.$numeric_part
           echo "New tag: $New_tag"
           echo "New_tag=$New_tag" >> $GITHUB_ENV
         else
-          New_tag=$IMAGE_NAME:TAG_WITHOUT_BUILD_NUMBER.1
+          New_tag=$IMAGE_NAME:$TAG_WITHOUT_BUILD_NUMBER.1
           echo "New tag: $New_tag"
           echo "New_tag=$New_tag" >> $GITHUB_ENV
         fi
