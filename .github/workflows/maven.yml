@@ -53,11 +53,11 @@ jobs:
           New_tag="$Branch-$Date.$numeric_part"
           echo "New tag: $New_tag"
           echo "New_tag=$New_tag" >> $GITHUB_ENV
-       else
+        else
           New_tag="$Branch-$Date.1"
           echo "New tag: $New_tag
           echo "New_tag=$New_tag" >> $GITHUB_ENV
-       fi
+        fi
       shell: bash
       env:
        JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.9-9/x64
