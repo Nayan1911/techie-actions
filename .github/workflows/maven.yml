@@ -41,7 +41,23 @@ jobs:
     
 
     - name: Build with Maven
-      run: mvn clean install 
+      run: mvn clean install
+
+    - name: Redifining Tag
+      run: |
+        if [ -n "$Tag" ] then,
+          numeric_part ="${Tag##*.}"
+          echo $numeric_part
+          numeric_part=$((numeric_part+1))
+          echo $numeric_part
+          $New_tag=$Branch-$Date.$numeric_part
+          echo $New_tag
+          echo "New_tag=$New_tag" >> $GITHUB_ENV
+        else 
+          New_tag= $Branch-$Date.1
+          echo $New_tag
+          echo "New_tag=$New_tag" >> $GITHUB_ENV
+        fi
 
     - name: Log in to Docker Hub
       uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
@@ -52,8 +68,8 @@ jobs:
 
     - name: Build and Push Docker Image
       run: |
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/techie:$Tag .
-        docker push ${{ secrets.DOCKER_USERNAME }}/techie:$Tag
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/techie:$New_tag .
+        docker push ${{ secrets.DOCKER_USERNAME }}/techie:$New_tag
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
