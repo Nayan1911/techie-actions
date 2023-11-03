@@ -22,8 +22,7 @@ jobs:
 
     - name: Assign Branch and date
       run:
-        BRANCH=$(echo "$GITHUB_REF" | awk -F'/' '{print $3}')
-        echo "Branch=$BRANCH" >> $GITHUB_ENV
+        echo "Branch=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
         echo "Date=$(date +'%d-%m-%y')" >> $GITHUB_ENV
 
     - name: Checking
