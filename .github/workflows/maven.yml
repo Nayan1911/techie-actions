@@ -32,7 +32,7 @@ jobs:
 
     - name: Assign Variable
       run:
-        echo "Tag=sharmanayan/techie:$BRANCH-$DATE.1" >> $GITHUB_ENV
+        echo "Tag=$BRANCH-$DATE.1" >> $GITHUB_ENV
 
     - name: Tag checking
       run:
