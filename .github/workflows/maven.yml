@@ -27,12 +27,12 @@ jobs:
 
     - name: Checking
       run:
-        echo $Branch
-        echo $Date
+        echo "Branch:${{ env.Branch }}"
+        echo "Date:${{ env.Date }}"
 
     - name: Assign Variable
       run:
-        echo "Tag=${{ env.Date }}.1" >> $GITHUB_ENV
+        echo "Tag=1" >> $GITHUB_ENV
 
     - name: Tag checking
       run:
