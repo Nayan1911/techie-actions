@@ -45,26 +45,26 @@ jobs:
 
     - name: Redifining Tag
       run: |
-        if [ -n "$Tag" ] then,
-          numeric_part ="${Tag##*.}"
-          echo "Current Numeric part: $numeric_part
+        if [ -n "$Tag" ]; then
+          numeric_part="${Tag##*.}"
+          echo "Current Numeric part: $numeric_part" 
           numeric_part=$((numeric_part+1))
-          echo "Updated Numeric Part: $numeric_part
-          $New_tag="$Branch-$Date.$numeric_part"
+          echo "Updated Numeric Part: $numeric_part"
+          New_tag="$Branch-$Date.$numeric_part"
+          echo "New tag: $New_tag"
+          echo "New_tag=$New_tag" >> $GITHUB_ENV
+       else
+          New_tag="$Branch-$Date.1"
           echo "New tag: $New_tag
           echo "New_tag=$New_tag" >> $GITHUB_ENV
-        else 
-          New_tag= $Branch-$Date.1
-          echo $New_tag
-          echo "New_tag=$New_tag" >> $GITHUB_ENV
-        fi
-      shell: Bash
+       fi
+      shell: bash
       env:
-        JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.9-9/x64
-        JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.9-9/x64
-        Branch: ${{ env.Branch }}
-        Date: ${{ env.Date }}
-        Tag: ${{ env.Tag }}
+       JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.9-9/x64
+       JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.9-9/x64
+       Branch: ${{ env.Branch }}
+       Date: ${{ env.Date }}
+       Tag: ${{ env.Tag }}
 
     - name: Log in to Docker Hub
       uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
