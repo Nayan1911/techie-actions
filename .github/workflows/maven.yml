@@ -51,7 +51,7 @@ jobs:
         AUTH_HEADER="Authorization: Bearer ${{ secrets.DOCKER_TOKEN }}"
         RESPONSE=$(curl --location --header "$AUTH_HEADER" "$API_URL")
         UPDATED_TAG=$(echo "$RESPONSE" | jq -r ".results[].name | select(. | test(\"$TAG_WITHOUT_BUILD_NUMBER\"))" | sort -rV | head -n 1)
-        echo $LATEST_TAG
+        echo $UPDATED_TAG
         if [ -n "$UPDATED_TAG" ]; then
           numeric_part="${UPDATED_TAG##*.}"
           echo "Current Numeric part: $numeric_part" 
