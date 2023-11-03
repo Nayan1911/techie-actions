@@ -33,7 +33,7 @@ jobs:
 
     - name: Assign Variable
       run:
-        echo "Tag=$BRANCH-$Date.1" >> $GITHUB_ENV
+        echo "Tag=$Date.1" >> $GITHUB_ENV
 
     - name: Tag checking
       run:
@@ -51,8 +51,8 @@ jobs:
 
     - name: Build and Push Docker Image
       run: |
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/techie:$Date.1 .
-        docker push ${{ secrets.DOCKER_USERNAME }}/techie:$Date.1
+        docker build -t ${{ secrets.DOCKER_USERNAME }}/techie:$Tag .
+        docker push ${{ secrets.DOCKER_USERNAME }}/techie:$Tag
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
