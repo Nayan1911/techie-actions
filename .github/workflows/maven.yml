@@ -32,7 +32,8 @@ jobs:
 
     - name: Assign Variable
       run:
-        echo "Tag=1" >> $GITHUB_ENV
+        echo "Tag=$Branch-$Date.1"
+        echo "Tag=$Tag" >> $GITHUB_ENV
 
     - name: Tag checking
       run:
