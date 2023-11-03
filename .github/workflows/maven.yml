@@ -58,7 +58,6 @@ jobs:
           echo "New tag: $New_tag
           echo "New_tag=$New_tag" >> $GITHUB_ENV
         fi
-      shell: /usr/bin/bash --noprofile --norc -e -o pipefail
       env:
        JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.9-9/x64
        JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.9-9/x64
